@@ -7,39 +7,53 @@
 	<title>Piedra Papel Tijera</title>
 </head>
 <body>
+	<main class="app">
+		<header class="hero">
+			<h1>🪨📄✂️ Piedra, Papel o Tijera</h1>
+			<p>Desafía a la máquina en una versión más moderna del clásico.</p>
+		</header>
 
-	<h1>Juego de Piedra Papel Tijera</h1>
+		<section class="panel configuracion">
+			<p><label for="nombre">Introduce el nombre del jugador </label><input id="nombre" type="text" name="nombre" autocomplete="nickname" placeholder="Ej: Alex"></p>
+			<p><label for="partidas">¿Cuántas partidas quieres jugar? </label><input id="partidas" type="number" name="partidas" value="0" min="1"></p>
+			<button id="jugar-btn" type="button">¡JUGAR!</button>
+		</section>
 
-	<p><label for="nombre">Introduce el nombre del jugador </label><input id="nombre" type="text" name="nombre" autocomplete="nickname"></p>
-	<p><label for="partidas">¿Cuántas partidas quieres jugar? </label><input id="partidas" type="number" name="partidas" value="0" min="1"></p>
-	<button id="jugar-btn" type="button">¡JUGAR!</button>
+		<section class="panel estado-juego">
+			<h3>Jugando la partida <span id="actual">0</span> de <span id="total">0</span>.</h3>
+			<p id="estado-ronda" class="estado-ronda">Configura la partida y pulsa <strong>¡JUGAR!</strong>.</p>
+		</section>
 
-	<h3>Jugando la partida <span id="actual">0</span> de <span id="total">0</span>.</h3>
+		<section class="panel tablero">
+			<div>
+				<h3>Tu elección</h3>
+				<div id="jugador" aria-label="Opciones del jugador">
+					<img class="seleccionado" src="img/defecto.png" alt="Piedra">
+					<img class="noSeleccionado" src="img/defecto.png" alt="Papel">
+					<img class="noSeleccionado" src="img/defecto.png" alt="Tijera">
+				</div>
+				<button id="ya-btn" type="button">¡YA!</button>
+			</div>
 
-	<div id="jugador" aria-label="Opciones del jugador">
-		<img class="seleccionado" src="img/defecto.png" alt="Piedra">
-		<img class="noSeleccionado" src="img/defecto.png" alt="Papel">
-		<img class="noSeleccionado" src="img/defecto.png" alt="Tijera">
-	</div>
+			<div id="maquina" class="maquina-card">
+				<h3>Máquina</h3>
+				<img src="img/defecto.png" alt="Selección de la máquina">
+			</div>
+		</section>
 
-	<h2>Piedra, papel o tijera.... <button id="ya-btn" type="button">¡YA!</button></h2>
-
-	<div id="maquina">
-		<img src="img/defecto.png" alt="Selección de la máquina">
-	</div>
-
-	<div>
-		<h3>Marcador</h3>
-		<p id="victory-count">Victorias Jugador: 0, Victorias Máquina: 0</p>
-	</div>
-
-	<div>
-		<h3>Historial de partidas</h3>
-		<ul id="historial"></ul>
-		<button id="reset-btn" type="button">RESET</button>
-	</div>
+		<section class="panel resumen">
+			<div>
+				<h3>Marcador</h3>
+				<p id="victory-count">Victorias Jugador: 0, Victorias Máquina: 0</p>
+			</div>
+			<div>
+				<h3>Historial de partidas</h3>
+				<ul id="historial"></ul>
+				<button id="reset-btn" type="button">RESET</button>
+			</div>
+		</section>
+	</main>
 
 	<script type="text/javascript" src="piedraPapelTijera.js"></script>
-
 </body>
 </html>

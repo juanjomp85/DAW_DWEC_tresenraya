@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let victoriasMaquina = 0;
     let nombreJugador = "";
 
-    const nombreJugadorInput = document.querySelector('input[name="nombre"]');
-    const partidasInput = document.querySelector('input[name="partidas"]');
+    const nombreJugadorInput = document.getElementById("nombre");
+    const partidasInput = document.getElementById("partidas");
     const jugarBtn = document.getElementById("jugar-btn");
     const yaBtn = document.getElementById("ya-btn");
     const resetBtn = document.getElementById("reset-btn");
@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const jugadorImgs = document.querySelectorAll("#jugador img");
     const maquinaImg = document.querySelector("#maquina img");
     const victoryDisplay = document.getElementById("victory-count");
+    const estadoRonda = document.getElementById("estado-ronda");
 
     const imgRutas = {
         piedra: "img/piedraJugador.png",
@@ -43,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         partidasInput.classList.toggle("fondoRojo", !partidasValidas);
 
         if (!nombreValido || !partidasValidas) {
+            estadoRonda.textContent = "Corrige los campos en rojo para comenzar.";
             return;
         }
 
@@ -60,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
         actualizarSeleccionUI(0);
         maquinaImg.src = imgRutas.defecto;
         updateVictoryCount();
+        estadoRonda.textContent = `¡Comienza el duelo, ${nombreJugador}!`;
         yaBtn.disabled = false;
     });
 
@@ -100,6 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         actualizarSeleccionUI(0);
 
+        estadoRonda.textContent = "Juego reiniciado. Configura una nueva partida.";
         updateVictoryCount();
         yaBtn.disabled = true;
     });
@@ -122,14 +126,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let resultadoPartida = "";
         if (eleccionJugador === eleccionMaquina) {
-            resultadoPartida = "Empate";
+            resultadoPartida = `Ronda ${partidaActual}: Empate`;
         } else {
             const ganadorIndex = posibilidades.indexOf(eleccionMaquina) - posibilidades.indexOf(eleccionJugador);
             if (ganadorIndex === 1 || ganadorIndex === -(posibilidades.length - 1)) {
-                resultadoPartida = "Gana la máquina";
+                resultadoPartida = `Ronda ${partidaActual}: Gana la máquina`;
                 victoriasMaquina += 1;
             } else {
-                resultadoPartida = `${nombreJugador} gana`;
+                resultadoPartida = `Ronda ${partidaActual}: ${nombreJugador} gana`;
                 victoriasJugador += 1;
             }
         }
@@ -138,10 +142,12 @@ document.addEventListener("DOMContentLoaded", () => {
         resultadoLi.textContent = resultadoPartida;
         historialUl.appendChild(resultadoLi);
 
+        estadoRonda.textContent = resultadoPartida;
         updateVictoryCount();
 
         if (partidaActual === totalPartidas) {
             yaBtn.disabled = true;
+            estadoRonda.textContent = getMensajeFinal();
         }
     }
 
@@ -150,6 +156,16 @@ document.addEventListener("DOMContentLoaded", () => {
             img.classList.toggle("seleccionado", indice === indiceSeleccionado);
             img.classList.toggle("noSeleccionado", indice !== indiceSeleccionado);
         });
+    }
+
+    function getMensajeFinal() {
+        if (victoriasJugador === victoriasMaquina) {
+            return "Fin de partida: empate global. ¡Buena batalla!";
+        }
+
+        return victoriasJugador > victoriasMaquina
+            ? `Fin de partida: ${nombreJugador} gana el duelo 🎉`
+            : "Fin de partida: la máquina gana el duelo 🤖";
     }
 
     function updateVictoryCount() {
