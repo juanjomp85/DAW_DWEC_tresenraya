@@ -1,12 +1,26 @@
+body {
+	font-family: Arial, sans-serif;
+	max-width: 840px;
+	margin: 0 auto;
+	padding: 1rem;
+}
+
 img {
 	width: 100px;
 	height: 100px;
+	cursor: pointer;
+}
+
+#jugador {
+	display: flex;
+	gap: 0.75rem;
+	margin-bottom: 1rem;
 }
 
 .fondoRojo {
-	background-color: red;
+	background-color: #ffd4d4;
+	border: 1px solid #d02b2b;
 }
-
 
 .seleccionado {
 	border: 5px solid red;
@@ -15,4 +29,8 @@ img {
 
 .noSeleccionado {
 	opacity: 0.5;
+}
+
+button {
+	cursor: pointer;
 }
